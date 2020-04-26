@@ -1,0 +1,87 @@
+#!/bin/bash
+# Copyright (C) 2018 Ernest Shefer <shef-er@ya.ru>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#------------------------------------------------------------------------
+
+INTERFACE=$(iwgetid | awk '{print $1}')
+
+# As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
+# connection (think desktop), the corresponding block should not be displayed.
+#[[ ! -d /sys/class/net/${INTERFACE}/wireless ]] ||
+#    [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && exit
+
+SSID=$(iwgetid -r)
+SSID=${SSID:=$INTERFACE}
+QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3) }')
+
+#------------------------------------------------------------------------
+
+usage() {
+cat <<EOF
+Usage: wireless [OPTION]
+
+    -h    print this message
+    -i    print status icon path
+    -t    print network SSID
+    -q    print network quality
+EOF
+}
+
+icon() {
+  OUTPUT="offline"
+
+  if [ "$QUALITY" -le 14 ]; then
+    OUTPUT="signal-none"
+  elif [ "$QUALITY" -le 28 ]; then
+    OUTPUT="signal-low"
+  elif [ "$QUALITY" -le 42 ]; then
+    OUTPUT="signal-ok"
+  elif [ "$QUALITY" -le 56 ]; then
+    OUTPUT="signal-good"
+  elif [ "$QUALITY" -le 70 ]; then
+    OUTPUT="signal-excellent"
+  fi
+
+  echo ".config/openbox/icons/network-wireless-$OUTPUT.png"
+}
+
+while getopts ":hiq" opt; do
+  case $opt in
+    h)
+      usage
+      exit 1
+      ;;
+    i)
+      icon
+      exit 0
+      ;;
+    q)
+      echo "$(($QUALITY*10/7))"
+      exit 0
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG"
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument"
+      exit 1
+      ;;
+  esac
+done
+
+echo "$SSID"
+

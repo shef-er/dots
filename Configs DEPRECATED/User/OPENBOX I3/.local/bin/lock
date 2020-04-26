@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# lock script using i3lock
+
+Scrot="/tmp/Scrot.png"
+Center="-gravity center -composite -matte"
+Pixel="-scale 10% -scale 1000% -fill black -colorize 20%"
+
+scrot -z $Scrot
+convert $Scrot $Pixel $Scrot
+
+i3lock -i $Scrot && sleep 1
+rm $Scrot
+exit 0

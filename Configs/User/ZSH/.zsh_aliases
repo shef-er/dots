@@ -1,0 +1,85 @@
+alias sudo='sudo '
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias h='fc -l'
+alias j=jobs
+alias m=less
+alias g='egrep -i'
+alias l='ls -aF'
+alias ll='ls -lthF'
+alias la='ls -lathF'
+alias df='df -h'
+
+#alias apt='sudo apt'
+#alias apt-get='sudo apt-get'
+#alias aptget='apt-get'
+#alias aptitude='sudo aptitude'
+
+#alias apti='apt install --no-install-recommends'
+#alias aptu='apt update'
+#alias aptug='apt upgrade'
+#alias aptugd='apt upgrade -d'
+#alias aptes='apt edit-sources'
+
+#alias aptr='apt remove'
+#alias aptp='apt purge'
+#alias aptc='apt clean'
+#alias aptar='apt autoremove'
+#alias aptap='apt autoremove --purge'
+#alias aptac='apt autoclean'
+
+#alias apts='/usr/bin/apt search'
+#alias aptl='/usr/bin/apt list'
+#alias aptlu='/usr/bin/apt list -u'
+
+alias dnf='sudo dnf'
+alias rpm='sudo rpm'
+
+# tar aliases
+alias tarzip='unzip'
+alias tarx='tar -xvf'
+alias targz='tar -zxvf'
+alias tarbz2='tar -jxvf'
+
+# be paranoid
+alias cp='cp -ip'
+alias mv='mv -i'
+alias rm='rm -i'
+
+# use neovim everywhere
+alias vim='nvim'
+alias vi='nvim'
+
+# global aliases
+alias -g N='2>/dev/null'
+alias -g L='|less'
+alias -g G='|grep'
+alias -g W='|wc -m'
+
+## aliases for extensions
+#alias -s {avi,mpeg,mpg,mov,m2v,webm,flv,mkv,mp4}=gnome-mpv
+#alias -s {odt,doc,sxw,rtf}=libreoffice
+#alias -s {txt,xml,html,c,h,cpp,hpp}=$EDITOR
+
+## for translate script
+#alias en2ru='trans -from english -to russian'
+#alias ru2en='trans -from russian -to english'
+
+## git aliasses
+#alias gstat='git status'
+#alias gadd='git add'
+#alias gcommit='git commit'
+#alias gcommitm='git commit -m'
+#alias gpush='git push'
+#alias gdiff='git difftool --dir-diff'
+#alias gdiffi='git difftool --dir-diff \
+#                          --ignore-space-change \
+#                          --ignore-all-space \
+#                          --ignore-blank-lines \
+#                          --ignore-space-at-eol'
+
+

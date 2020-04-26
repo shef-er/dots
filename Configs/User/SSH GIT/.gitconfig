@@ -1,0 +1,12 @@
+[credential]
+	helper = cache
+[core]
+	filemode = false
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[commit]
+	gpgsign = true

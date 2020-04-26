@@ -1,0 +1,75 @@
+!# vim: ft=xdefaults
+!---------------------------------------
+! Rofi settings
+!---------------------------------------
+!  Ctrl + v, Insert                Paste clipboard
+!  Ctrl + Shift-v, Shift-Insert    Paste primary selection
+!  Ctrl + u                        Clear the line
+!  Ctrl + a                        Beginning of line
+!  Ctrl + e                        End of line
+!  Ctrl + f, Right                 Forward one character
+!   Alt + f                        Forward one word
+!  Ctrl + b, Left                  Back one character
+!   Alt + b                        Back one word
+!  Ctrl + d, Delete                Delete character
+!  Ctrl + Alt + d                  Delete word
+!  Ctrl + h, Backspace             Backspace (delete previous character)
+!  Ctrl + Alt + h                  Delete previous word
+!  Ctrl + j, Ctrl + m, Enter       Accept entry
+!  Ctrl + n, Down                  Select next entry
+!  Ctrl + p, Up                    Select previous entry
+!         PageUp                   Go to the previous page
+!         PageDown                 Go to the next page
+!  Ctrl + Page Up                  Go to the previous column
+!  Ctrl + Page Down                Go to the next column
+!  Ctrl + Enter                    Use entered text as command (in ssh/run modi)
+! Shift + Enter                    Launch the application in a terminal (in run mode)
+! Shift + Enter                    Return the selected entry and move to the next item while keeping Rofi open. (in dmenu)
+! Shift + Right                    Switch to the next modi.
+! Shift + Left                     Switch to the previous modi.
+!  Ctrl + Tab                      Switch to the next modi.
+!  Ctrl + Shift + Tab              Switch to the previous modi.
+!  Ctrl + space                    Set selected item as input text.
+! Shift + Del                      Delete entry from history.
+!         grave                    Toggle case sensitivity.
+!   Alt + grave                    Toggle levenshtein sort.
+!   Alt + Shift + S                Take a screenshot and store this in the Pictures directory.
+!---------------------------------------
+! CSS Theme
+rofi.theme:                          default.rasi
+! "Terminal to use" Set from: File
+rofi.terminal:                       x-terminal-emulator
+! "Ssh client to use" Set from: Default
+! rofi.ssh-client:                     ssh
+! "Ssh command to execute" Set from: Default
+! rofi.ssh-command:                    {terminal} -e {ssh-client} {host}
+! "Run command to execute" Set from: Default
+! rofi.run-command:                    {cmd}
+! "Command to get extra run targets" Set from: Default
+! rofi.run-list-command:               
+! "Run command to execute that runs in shell" Set from: Default
+! rofi.run-shell-command:              {terminal} -e {cmd}
+! "Command executed on accep-entry-custom for window modus" Set from: Default
+! rofi.window-command:                 xkill -id {window}
+! "Disable history in run/ssh" Set from: Default
+! rofi.disable-history:                false
+! "Use levenshtein sorting" Set from: File
+rofi.levenshtein-sort:               false
+! "Set case-sensitivity" Set from: File
+rofi.case-sensitive:                 false
+! "Cycle through the results list" Set from: Default
+! rofi.cycle:                          true
+! "Enable auto select mode" Set from: Default
+! rofi.auto-select:                    false
+! "Parse hosts file for ssh mode" Set from: Default
+! rofi.parse-hosts:                    false
+! "Parse known_hosts file for ssh mode" Set from: Default
+! rofi.parse-known-hosts:              true
+! "Set the matching algorithm. (normal, regex, glob, fuzzy)" Set from: Default
+! rofi.matching:                       normal
+! "Tokenize input string" Set from: Default
+! rofi.tokenize:                       true
+! "Monitor id to show on" Set from: Default
+! rofi.m:                              -5
+! "Scrolling method. (0: Page, 1: Centered)" Set from: Default
+! rofi.scroll-method:                  0

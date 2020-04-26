@@ -1,0 +1,12 @@
+#
+# Set system-wide environment variables here for Openbox
+# User-specific variables should be placed in $HOME/.config/openbox/environment
+#
+
+## GNOME Keyring
+ps cax | grep gnome-keyring-d > /dev/null
+if [ $? -eq 0 ]; then
+  echo "Gnome keyring daemon is already running."
+else
+  export $(gnome-keyring-daemon --start --components=pkcs11,secrets)
+fi

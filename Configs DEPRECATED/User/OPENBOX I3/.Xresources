@@ -1,0 +1,116 @@
+!!---------------------------------------
+!! Colors
+!!---------------------------------------
+*.background:  #121212
+*.foreground:  #bcbcbc
+*.cursorColor: #ffffff
+!*.cursorColor: #87d7ff
+
+!! black
+*.color0:  #121212
+*.color8:  #767676
+!! red
+*.color1:  #ff005f
+*.color9:  #ff00af
+!! green
+*.color2:  #5fd700
+*.color10: #87ff00
+!! yellow
+*.color3:  #ffaf00
+*.color11: #ffd75f
+!! blue
+*.color4:  #0087d7
+*.color12: #5fafff
+!! magenta
+*.color5:  #8700d7
+*.color13: #af5fff
+!! cyan
+*.color6:  #00d7d7
+*.color14: #5fffff
+!! white
+*.color7:  #bcbcbc
+*.color15: #ffffff
+
+
+!!---------------------------------------
+!! XFT Settings
+!!---------------------------------------
+Xft.dpi:        96
+Xft.autohint:   true
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting:    true
+Xft.antialias:  true
+Xft.rgba:       rgb
+
+
+!!---------------------------------------
+!! Global terminal settings
+!!---------------------------------------
+*saveLines:      16384
+*cursorBlink:    true
+*internalBorder: 2
+*scrollBar:      false
+!*font:           -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+!*font:           -xos4-Terminus-Medium-R-Normal--12-120-72-72-C-60-ISO10646-1
+
+
+!!---------------------------------------
+!! XTerm
+!!---------------------------------------
+!XTerm*loginShell:     true
+!XTerm*geometry:       80x28
+XTerm*boldMode:       false
+!XTerm*scrollBar:      true
+XTerm*termName:       xterm-256color
+XTerm*borderWidth:    1
+XTerm*eightBitInput:  false
+XTerm*locale:         true
+XTerm*bellIsUrgent:   false
+!XTerm*faceName:       terminus:pixelsize=9
+
+
+!!---------------------------------------
+!! URxvt
+!!---------------------------------------
+URxvt*geometry:    80x28
+URxvt.font:        xft:terminus:size=9
+URxvt.boldFont:    xft:terminus:bold:size=9
+URxvt.letterSpace: 0
+URxvt.lineSpace:   0
+URxvt.iconFile:    /usr/share/icons/gnome/48x48/apps/utilities-terminal.png
+URxvt.visualBell:  false
+!URxvt.fading:      25
+!URxvt*scrollTtyKeypress: true
+!URxvt*scrollWithBuffer:  true
+!URxvt*secondaryScroll:   true
+
+!! True Transparency, opacity percentage set in square brackets before URxvt.background colour
+URxvt.depth:       32
+
+!! Colourised man pages, also changes scheme for htop(1) and others.
+!! Headings:
+!URxvt.colorBD: #ff00af
+!! Underline:
+!URxvt.colorUL: #5fafff
+!! Italicised:
+!URxvt.colorIT: #5fffff
+
+!! URxvt extensions
+!URxvt.perl-lib:        ~/.config/urxvt/perl
+!URxvt.perl-ext-common: default,matcher,tabbedex
+
+!! Matcher
+!URxvt.matcher.button: 3
+!URxvt.underlineURLs:  true
+!URxvt.url-launcher:   x-www-browser
+
+!! Tabbed(ex)
+!URxvt.tabbed.tabbar-fg:  8
+!URxvt.tabbed.tabbar-bg:  -1
+!URxvt.tabbed.tab-fg:     5
+!URxvt.tabbed.tab-bg:     -1
+!URxvt.tabbed.new-button: no
+!URxvt.tabbed.title:      no
+!URxvt.tabbed.autohide:   yes
+!URxvt.tabbed.reopen-on-close: no

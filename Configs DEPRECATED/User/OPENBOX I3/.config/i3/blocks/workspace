@@ -1,0 +1,10 @@
+#!/bin/sh
+# Copyright (C) 2017 Ernest Shefer <shef-er@ya.ru>
+
+CURRENT=$(xprop -root _NET_CURRENT_DESKTOP | cut -d'=' -f2)
+LIST=$(xprop -root _NET_DESKTOP_NAMES | cut -d'=' -f2 | sed 's/[",]//g')
+
+FILTER="eval $(printf "awk '{print $%d}'" "$((CURRENT+1))")"
+#------------------------------------------------------------------------
+
+echo "<b>$(echo $LIST | $FILTER)</b>"

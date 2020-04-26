@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://openbox.org/
+                file:///usr/share/openbox/menu.xsd">
+
+
+<menu id="custom-menu" label="Custom">
+</menu>
+
+<menu id="system-menu" label="Системные">
+  <item label="Звук">
+    <action name="Execute">
+        <execute>
+          pavucontrol
+        </execute>
+    </action>
+  </item>
+  <item label="Сеть">
+    <action name="Execute">
+        <execute>
+          x-terminal-emulator -e nmtui
+        </execute>
+    </action>
+  </item>
+  <item label="Погасить экран">
+    <action name="Execute">
+        <execute>
+            xset dpms force off
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Системный монитор">
+    <action name="Execute">
+        <execute>
+          x-terminal-emulator -e "htop"
+        </execute>
+    </action>
+  </item>
+  <item label="Сетевые инструменты">
+    <action name="Execute">
+        <execute>
+          gnome-nettool
+        </execute>
+    </action>
+  </item>
+  <item label="Редактор dconf">
+    <action name="Execute">
+        <execute>
+          dconf-editor
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Диски">
+    <action name="Execute">
+        <execute>
+          gnome-disks
+        </execute>
+    </action>
+  </item>
+  <item label="Пароли и ключи">
+    <action name="Execute">
+        <execute>
+          seahorse
+        </execute>
+    </action>
+  </item>
+</menu>
+
+
+<menu id="config-menu" label="Править конфиги">
+  <item label=".xsessionrc">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.xsessionrc
+        </execute>
+    </action>
+  </item>
+  <item label=".zshrc">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.zshrc
+        </execute>
+    </action>
+  </item>
+  <item label="compton.conf">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/compton.conf
+        </execute>
+    </action>
+  </item>
+  <item label="dunst">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/dunst/dunstrc
+        </execute>
+    </action>
+  </item>
+
+  <separator label="openbox"/>
+  <item label="autostart">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/autostart
+        </execute>
+    </action>
+  </item>
+  <item label="environment">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/environment
+        </execute>
+    </action>
+  </item>
+  <item label="menu.xml">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/menu.xml
+        </execute>
+    </action>
+  </item>
+  <item label="rc.xml">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/rc.xml
+        </execute>
+    </action>
+  </item>
+  <item label="desktop.tint2rc">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/desktop.tint2rc
+        </execute>
+    </action>
+  </item>
+  <item label="laptop.tint2rc">
+    <action name="Execute">
+        <execute>
+            nvim-term ~/.config/openbox/laptop.tint2rc
+        </execute>
+    </action>
+  </item>
+</menu>
+
+
+<menu id="settings-menu" label="Параметры">
+
+  <separator label="Параметры"/>
+  <item label="Внешний вид">
+    <action name="Execute">
+        <execute>
+            lxappearance
+        </execute>
+    </action>
+  </item>
+  <item label="Выбор обоев">
+    <action name="Execute">
+        <execute>
+            nitrogen
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Клавиатура и мышь">
+    <action name="Execute">
+        <execute>
+            lxinput
+        </execute>
+    </action>
+  </item>
+  <item label="Настройки дисплея">
+    <action name="Execute">
+        <execute>
+            lxrandr
+        </execute>
+    </action>
+  </item>
+  <item label="Сетевые соединения">
+    <action name="Execute">
+        <execute>
+            nm-connection-editor
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Дата и время">
+    <action name="Execute">
+        <execute>
+            time-admin
+        </execute>
+    </action>
+  </item>
+  <item label="Папки">
+    <action name="Execute">
+        <execute>
+            shares-admin
+        </execute>
+    </action>
+  </item>
+  <item label="Пользователи и группы">
+    <action name="Execute">
+        <execute>
+            users-admin
+        </execute>
+    </action>
+  </item>
+  <item label="Сетевые параметры">
+    <action name="Execute">
+        <execute>
+            network-admin
+        </execute>
+    </action>
+  </item>
+  <item label="Службы">
+    <action name="Execute">
+        <execute>
+            services-admin
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Смена пароля">
+    <action name="Execute">
+        <execute>
+            userpasswd
+        </execute>
+    </action>
+  </item>
+  <item label="Информация о себе">
+    <action name="Execute">
+        <execute>
+            userinfo
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Менеджер пакетов">
+    <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Synaptic</name>
+        </startupnotify>
+        <execute>
+            synaptic-pkexec
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <menu id="config-menu"/>
+  <item label="Перезагрузить всё">
+    <action name="Reconfigure"/>
+    <action name="Execute">
+      <execute>
+        killall -SIGUSR1 tint2
+      </execute>
+    </action>
+    <action name="Execute">
+      <execute>
+        killall -SIGUSR1 compton
+      </execute>
+    </action>
+    <action name="Execute">
+      <execute>
+        killall dunst
+      </execute>
+    </action>
+    <action name="Execute">
+      <execute>
+        xrdb .Xresources
+      </execute>
+    </action>
+  </item>
+
+</menu>
+
+
+<menu id="power-menu" label="Питание">
+  <item label="Выйти">
+    <action name="Exit" />
+  </item>
+  <separator />
+  <item label="Приостановить">
+    <action name="Execute">
+        <command>
+            systemctl suspend
+        </command>
+    </action>
+  </item>
+  <item label="Перезагрузить">
+    <action name="Execute">
+        <execute>
+            systemctl reboot
+        </execute>
+    </action>
+  </item>
+  <item label="Выключить">
+    <action name="Execute">
+        <execute>
+            systemctl poweroff
+        </execute>
+    </action>
+  </item>
+</menu>
+
+
+<menu id="root-menu" label="Openbox">
+
+  <item label="Программы…">
+    <action name="Execute">
+        <execute>
+            rofi -show drun -theme-str 'window { font: "Sans 9"; }'
+        </execute>
+    </action>
+  </item>
+  <item label="Команды…">
+    <action name="Execute">
+        <execute>
+            rofi -show run
+        </execute>
+    </action>
+  </item>
+  <item label="Окна…">
+    <action name="Execute">
+        <execute>
+            rofi -show windowcd -theme-str 'window { font: "Sans 9"; }'
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <item label="Терминал">
+    <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Terminal</name>
+        </startupnotify>
+        <execute>
+            x-terminal-emulator
+        </execute>
+    </action>
+  </item>
+  <item label="Браузер">
+    <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Web browser</name>
+        </startupnotify>
+        <execute>
+            x-www-browser
+        </execute>
+    </action>
+  </item>
+  <item label="Файлы">
+    <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>File Manager</name>
+        </startupnotify>
+        <execute>
+            x-file-manager
+        </execute>
+    </action>
+  </item>
+  <item label="Редактор">
+    <action name="Execute">
+        <startupnotify>
+          <enabled>false</enabled>
+          <name>Editor</name>
+        </startupnotify>
+        <execute>
+            x-text-editor
+        </execute>
+    </action>
+  </item>
+
+  <separator />
+  <menu id="system-menu"/>
+  <menu id="settings-menu"/>
+
+  <!--<separator />
+  <menu id="client-list-menu"></menu>-->
+
+  <separator />
+  <menu id="power-menu"/>
+  <item label="Заблокировать">
+    <action name="Execute">
+        <execute>
+          dm-tool lock
+        </execute>
+    </action>
+  </item>
+
+</menu>
+
+</openbox_menu>

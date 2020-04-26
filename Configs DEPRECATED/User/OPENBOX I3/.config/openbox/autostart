@@ -1,0 +1,25 @@
+#
+# These things are run when an Openbox X Session is started.
+# More information about this can be found at:
+# http://openbox.org/wiki/Help:Autostart
+#
+
+## GNOME PolicyKit authentication (debian path)
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+echo "openbox/autostart: policykit started"
+
+## Wallpaper
+nitrogen --restore &
+echo "openbox/autostart: nitrogen started"
+
+## Panel
+if upower -e | grep -q "BAT"; then
+    (sleep 1s; tint2 -c ~/.config/openbox/laptop.tint2rc) &
+else
+    (sleep 1s; tint2 -c ~/.config/openbox/desktop.tint2rc) &
+fi
+echo "openbox/autostart: tint2 started"
+
+## compositor
+(sleep 1s; compton -c --config ~/.config/compton.conf) &
+echo "openbox/autostart: compton started"

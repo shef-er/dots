@@ -1,0 +1,101 @@
+!! Arc for Openbox by Ernest Shefer <shef-er@ya.ru>
+!! Inspired by Horst3180's Arc GTK+ theme.
+
+
+!! General
+padding.width: 5
+padding.height: 5
+
+window.client.padding.width: 0
+window.client.padding.height: 0
+window.handle.width: 0
+
+border.width: 1
+border.color: #dbdfe3
+!border.color: #e5effb
+
+window.frameColor: #e7e8eb
+window.*.client.color: #e7e8eb
+*.text.justify: center
+
+
+!! Windows
+window.*.title.bg: flat solid
+window.*.title.bg.color: #e7e8eb
+window.*.title.separator.color: #e7e8eb
+
+window.*.handle.bg: flat solid
+window.*.handle.bg.color: #e7e8eb
+
+window.*.grip.bg: flat solid
+window.*.grip.bg.color: #e7e8eb
+
+window.*.label.bg: parentrelative
+window.*.label.text.color: #5c616c
+
+window.*.button.*.bg: flat solid
+window.*.button.*.bg.color: #e7e8eb
+window.*.button.*.image.color: #90949e
+
+!! Active window
+window.active.label.text.color: #5c616c
+
+window.active.button.*.image.color: #90949e
+window.active.button.*hover.image.color: #70788d
+window.active.button.*pressed.image.color: #5294e2
+window.active.button.*disabled.image.color: #b6b8c0
+
+!window.active.button.close*.image.color: #f46067
+window.active.button.close*hover.image.color: #d7787d
+window.active.button.close*pressed.image.color: #be3841
+
+!! Inactive window
+window.inactive.label.text.color: #979dac
+window.inactive.button.*.image.color: #b6b8c0
+
+
+!! Menu
+menu.overlap.x: -6
+menu.overlap.y: 0
+
+menu.border.width: 10
+menu.border.color: #ffffff
+
+menu.separator.width: 0
+menu.separator.padding.height: 5
+menu.separator.color: #ffffff
+
+menu.title.bg: flat solid
+menu.title.bg.color: #ffffff
+menu.title.bg.border.color: #ffffff
+menu.title.text.color: #5c616c
+
+menu.items.bg: flat solid
+menu.items.bg.color: #ffffff
+menu.items.text.color: #5c616c
+menu.items.disabled.text.color: #a9acb2
+
+menu.items.active.bg: flat solid
+menu.items.active.bg.color: #5294e2
+menu.items.active.text.color: #ffffff
+!menu.items.active.bg.color: #edeff0
+!menu.items.active.text.color: #5c616c
+
+
+!! OSD
+osd.border.width: 1
+osd.border.color: #dbdfe3
+
+osd.bg: flat solid
+osd.bg.color: #e7e8eb
+
+osd.label.bg: parentrelative
+osd.label.bg.color: #e7e8eb
+osd.label.text.color: #5c616c
+osd.active.label.text.color: #5c616c
+osd.inactive.label.text.color: #979dac
+
+osd.hilight.bg: flat solid
+osd.hilight.bg.color: #5294e2
+osd.unhilight.bg: flat solid
+osd.unhilight.bg.color: #ffffff

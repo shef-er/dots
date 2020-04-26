@@ -1,0 +1,137 @@
+#!/bin/bash
+# Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
+# Copyright (C) 2014 Alexander Keller <github@nycroth.com>
+# Copyright (C) 2018 Ernest Shefer <shef-er@ya.ru>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#------------------------------------------------------------------------
+
+# The second parameter overrides the mixer selection
+# For PulseAudio users, use "pulse"
+# For Jack/Jack2 users, use "jackplug"
+# For ALSA users, you may use "default" for your primary card
+# or you may use hw:# where # is the number of the card desired
+MIXER="default"
+[ -n "$(lsmod | grep pulse)" ] && MIXER="pulse"
+[ -n "$(lsmod | grep jack)" ] && MIXER="jackplug"
+MIXER="${2:-$MIXER}"
+
+# The instance option sets the control to report and configure
+# This defaults to the first control of your selected mixer
+# For a list of the available, use `amixer -D $Your_Mixer scontrols`
+SCONTROL="${BLOCK_INSTANCE:-$(amixer -D $MIXER scontrols |
+                  sed -n "s/Simple mixer control '\([A-Za-z ]*\)',0/\1/p" |
+                  head -n1
+                )}"
+
+# The first parameter sets the step to change the volume by (and units to display)
+# This may be in in % or dB (eg. 5% or 3dB)
+STEP="5%"
+
+capability() { # Return "Capture" if the device is a capture device
+  amixer -D $MIXER get $SCONTROL |
+    sed -n "s/  Capabilities:.*cvolume.*/Capture/p"
+}
+
+volume() {
+  amixer -D $MIXER get $SCONTROL $(capability)
+}
+
+format() {
+  perl_filter='if (/.*\[(\d+)\%\] ?\[(on|off)\]/)'
+  perl_filter+='{CORE::say $2 eq "off" ? "0" : "$1"; exit}'
+  perl -ne "$perl_filter"
+}
+
+LEVEL=$(volume | format)
+
+#------------------------------------------------------------------------
+
+usage() {
+cat <<EOF
+Usage: volume [OPTION]
+
+    -t            print volume level
+    -h            print this message
+    -i            print path to icon
+
+    --plus        volume control
+    --minus
+    --toggle
+EOF
+}
+
+icon() {
+  OUTPUT="muted"
+
+  if [ "$LEVEL" -eq 0 ]; then
+    OUTPUT="muted"
+  elif [ "$LEVEL" -le 33 ]; then
+    OUTPUT="low"
+  elif [ "$LEVEL" -le 66 ]; then
+    OUTPUT="medium"
+  elif [ "$LEVEL" -le 100 ]; then
+    OUTPUT="high"
+  elif [ "$LEVEL" -le 133 ]; then
+    OUTPUT="super-low"
+  elif [ "$LEVEL" -le 166 ]; then
+    OUTPUT="super-medium"
+  elif [ "$LEVEL" -gt 166 ]; then
+    OUTPUT="super-high"
+  fi
+
+  echo ".config/openbox/icons/audio-volume-$OUTPUT.png"
+}
+
+case $1 in
+  --help)
+    usage
+    exit 1
+  ;;
+  -i|--icon)
+    icon
+    exit 0
+  ;;
+  -l|--level)
+    echo $LEVEL
+    exit 0
+  ;;
+  
+  # Actions
+  --plus)
+    pactl set-sink-volume 0 '+5%'
+    # for bluez audio sink
+    pactl set-sink-volume 2 '+5%'
+    exit 0
+  ;;
+  --minus)
+    pactl set-sink-volume 0 '-5%'
+    # for bluez audio sink
+    pactl set-sink-volume 2 '-5%'
+    exit 0
+  ;;
+  --toggle)
+    pactl set-sink-mute 0 toggle
+    # for bluez audio sink
+    pactl set-sink-mute 2 toggle
+    exit 0
+  ;;
+  
+  # Unknown option
+  *) 
+    printf "Invalid option. \nRun \"$0 --help\" for list of arguments.\n"
+  ;;
+esac
+

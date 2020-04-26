@@ -1,0 +1,97 @@
+!! Arc Darker for Openbox by Ernest Shefer <shef-er@ya.ru>
+!! Inspired by Horst3180's Arc GTK+ theme.
+
+
+!! General
+border.width: 0
+padding.width: 5
+padding.height: 5
+border.color: #e5effb
+window.handle.width: 0
+window.client.padding.width: 0
+window.client.padding.height: 0
+window.frameColor: #e7e8eb
+window.*.client.color: #e7e8eb
+*.text.justify: center
+
+
+!! Menu
+menu.overlap.x: -6
+menu.overlap.y: 0
+
+menu.border.width: 10
+menu.border.color: #ffffff
+
+menu.separator.width: 0
+menu.separator.padding.height: 5
+menu.separator.color: #ffffff
+
+menu.title.bg: flat solid
+!menu.title.bg.color: #e7e8eb
+menu.title.bg.color: #ffffff
+menu.title.bg.border.color: #ffffff
+!menu.title.text.color: #90949E
+menu.title.text.color: #5c616c
+
+menu.items.bg: flat solid
+menu.items.bg.color: #ffffff
+menu.items.text.color: #5c616c
+menu.items.disabled.text.color: #a9acb2
+
+menu.items.active.bg: flat solid
+menu.items.active.bg.color: #edeff0
+menu.items.active.text.color: #5c616c
+!menu.items.active.bg.color: #5294e2
+!menu.items.active.text.color: #ffffff
+
+
+!! Windows
+window.*.title.bg: flat solid
+window.*.title.bg.color: #2f343f
+window.*.title.separator.color: #2f343f
+
+window.*.handle.bg: flat solid
+window.*.handle.bg.color: #2f343f
+
+window.*.grip.bg: flat solid
+window.*.grip.bg.color: #2f343f
+
+window.*.label.bg: parentrelative
+window.*.label.text.color: #afb8c6
+
+window.*.button.*.bg: flat solid
+window.*.button.*.bg.color: #2f343f
+window.*.button.*.image.color: #90949e
+
+!! Active window
+window.active.label.text.color: #afb8c6
+
+window.active.button.*.image.color: #90939b
+window.active.button.*hover.image.color: #c4c7cc
+window.active.button.*pressed.image.color: #5294e2
+window.active.button.*disabled.image.color: #666a74
+
+!window.active.button.close*.image.color: #f46067
+window.active.button.close*hover.image.color: #d7787d
+window.active.button.close*pressed.image.color: #be3841
+
+!! Inactive window
+window.inactive.label.text.color: #8a939f
+window.inactive.button.*.image.color:  #666a74
+
+
+!! OSD
+osd.bg: flat solid
+osd.bg.color: #2f343f
+osd.border.color: #2c2f38
+
+osd.label.bg: parentrelative
+osd.label.text.color: #afb8c6
+osd.active.label.bg.color: #5294e2
+osd.active.label.text.color: #afb8c6
+osd.inactive.label.text.color: #8a939f
+
+osd.hilight.bg: flat vertical
+osd.hilight.bg.color: #5294e2
+osd.unhilight.bg: flat vertical
+osd.unhilight.bg.color: #b6b8c0

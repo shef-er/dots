@@ -1,0 +1,366 @@
+#---------------------------------------------
+## TINT2 CONFIG FILE
+#---------------------------------------------
+## Pallete:
+#
+## BG:      #000000
+## FG:      #ffffff
+#
+## Blue:    #5294e2
+## Red:     #e25294
+
+
+#---------------------------------------------
+## GRADIENTS
+#---------------------------------------------
+## ID1
+gradient = vertical
+start_color = #ffffff 0
+end_color = #ffffff 5
+
+## ID2
+gradient = vertical
+start_color = #ffffff 0
+end_color = #ffffff 10
+
+## ID3
+gradient = vertical
+start_color = #ffffff 0
+end_color = #ffffff 15
+
+## ID4
+gradient = vertical
+start_color = #ffffff 0
+end_color = #ffffff 20
+
+## ID5
+gradient = vertical
+start_color = #000000 0
+end_color = #000000 60
+
+
+#---------------------------------------------
+## ID1 Panel
+#---------------------------------------------
+rounded = 0
+border_width = 0
+border_sides = T
+background_color = #000000 100
+border_color = #000000 100
+gradient_id = 5
+
+
+#---------------------------------------------
+## ID2 Tooltip
+#---------------------------------------------
+rounded = 0
+border_width = 0
+background_color = #ffffff 100
+
+
+#---------------------------------------------
+## ID3 Task
+#---------------------------------------------
+rounded = 0
+border_width = 2
+border_sides = B
+background_color = #ffffff 0
+background_color_hover = #ffffff 10
+background_color_pressed = #ffffff 5
+border_color = #ffffff 100
+
+#gradient_id_hover = 2
+#gradient_id_pressed = 1
+
+
+#---------------------------------------------
+## ID4 Active task
+#---------------------------------------------
+rounded = 0
+border_width = 2
+border_sides = B
+background_color = #ffffff 15
+background_color_hover = #ffffff 20
+background_color_pressed = #ffffff 10
+border_color = #ffffff 100
+#background_content_tint_weight = 60
+#border_content_tint_weight = 60
+
+#gradient_id = 3
+#gradient_id_hover = 4
+#gradient_id_pressed = 2
+
+
+#---------------------------------------------
+## ID5 Urgent task
+#---------------------------------------------
+rounded = 0
+border_width = 2
+border_sides = B
+background_color = #e25294 15
+border_color = #e25294 100
+
+
+#---------------------------------------------
+## ID6 Iconified task
+#---------------------------------------------
+rounded = 0
+border_width = 0
+background_color = #ffffff 0
+background_color_hover = #ffffff 10
+background_color_pressed = #ffffff 5
+
+#gradient_id_hover = 2
+#gradient_id_pressed = 1
+
+#---------------------------------------------
+## ID7 Test
+#---------------------------------------------
+rounded = 0
+border_width = 1
+border_sides = BTLR
+background_color = #52e294 40
+border_color = #e25294 80
+
+
+#---------------------------------------------
+## PANEL
+#---------------------------------------------
+panel_items = TFSEEEBC
+panel_monitor = all
+panel_dock = 0
+panel_layer = top
+panel_position = bottom center horizontal
+panel_size = 100% 40
+panel_margin = 0 0
+panel_padding = 0 0 1
+#primary_monitor_first = 0
+
+wm_menu = 1
+panel_window_name = tint2
+strut_policy = follow_size
+
+mouse_effects = 1
+mouse_hover_icon_asb = 100 0 0
+mouse_pressed_icon_asb = 100 0 0
+
+panel_background_id = 1
+
+
+#---------------------------------------------
+## TASKBAR
+#---------------------------------------------
+taskbar_mode = single_desktop
+taskbar_distribute_size = 0
+taskbar_hide_inactive_tasks = 0
+taskbar_hide_different_monitor = 0
+taskbar_always_show_all_desktop_tasks = 0
+taskbar_sort_order = none
+taskbar_padding = 5 0 1
+taskbar_name = 0
+taskbar_name_padding = 10 0
+
+taskbar_background_id = 0
+taskbar_active_background_id = 0
+taskbar_name_font = Noto Sans Bold 8
+taskbar_name_background_id = 0
+taskbar_name_active_background_id = 0
+taskbar_name_font_color = #ffffff 66
+taskbar_name_active_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## TASKS
+#---------------------------------------------
+task_icon = 1
+task_text = 1
+task_centered = 0
+task_maximum_size = 200 40
+task_tooltip = 0
+#-- icons
+#task_text = 0
+#task_centered = 1
+#task_maximum_size = 48 40
+#task_tooltip = 1
+#----
+task_thumbnail = 0
+task_thumbnail_size = 300
+task_align = left
+urgent_nb_of_blink = 20
+task_padding = 10 8
+
+task_icon_asb = 100 0 0
+task_active_icon_asb = 100 0 0
+task_urgent_icon_asb = 100 0 0
+task_iconified_icon_asb = 100 0 0
+
+task_font = Noto Sans Bold 8
+
+task_background_id = 3
+task_active_background_id = 4
+task_urgent_background_id = 5
+task_iconified_background_id = 6
+
+task_font_color = #ffffff 100
+task_active_font_color = #ffffff 100
+task_urgent_font_color = #ffffff 100
+task_iconified_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## MOUSE ACTION ON TASK
+#---------------------------------------------
+mouse_left = toggle_iconify
+mouse_middle = close
+mouse_right = iconify
+mouse_scroll_up = next_task
+mouse_scroll_down = prev_task
+
+
+#---------------------------------------------
+## SYSTRAY BAR
+#---------------------------------------------
+systray_padding = 7 0 15
+systray_sort = ascending
+systray_icon_size = 24
+systray_monitor = 1
+
+systray_icon_asb = 100 0 0
+
+systray_background_id = 0
+
+
+#---------------------------------------------
+## CLOCK
+#---------------------------------------------
+time1_format = %H∶%M
+time2_format = %a. %d/%m
+clock_tooltip =
+clock_padding = 10 0
+
+clock_lclick_command = gnome-clocks
+clock_mclick_command = gnome-calendar
+clock_rclick_command = time-admin
+#clock_uwheel_command =
+#clock_dwheel_command =
+
+time1_font = Noto Sans Bold 8
+time2_font = Noto Sans Bold 8
+clock_background_id = 6
+clock_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## BATTERY
+#---------------------------------------------
+battery_hide = 95
+battery_low_status = 34
+battery_low_cmd = notify-send -u "critical" "Charge me, please\!\!  I can't feel my /dev/"
+ac_connected_cmd = notify-send "Charging"
+ac_disconnected_cmd = notify-send "Discharging"
+#battery_tooltip_enabled =
+battery_padding = 5 0
+
+#battery_lclick_command =
+#battery_mclick_command =
+#battery_rclick_command =
+#battery_uwheel_command =
+#battery_dwheel_command =
+
+bat1_font = Noto Sans Bold 8
+bat2_font = Noto Sans Bold 0
+battery_background_id = 0
+battery_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## WIRELESS NETWORK STATUS
+#---------------------------------------------
+execp = wifi
+execp_command = ~/.config/openbox/script/wireless -i;  ~/.config/openbox/script/wireless
+execp_tooltip =
+execp_interval = 1
+#execp_continuous = 1
+execp_has_icon = 1
+#execp_cache_icon = 0
+execp_markup = 1
+execp_centered = 1
+# the last digit is spacing betweeen icon and text
+execp_padding = 8 0 5
+
+execp_lclick_command = x-terminal-emulator -e "nmtui"
+#execp_mclick_command =
+execp_rclick_command = nm-connection-editor
+
+execp_font = Noto Sans Bold 8
+execp_background_id = 6
+execp_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## VOLUME LEVEL
+#---------------------------------------------
+execp = volume
+execp_command = ~/.config/openbox/script/volume -i
+execp_tooltip =
+execp_interval = 1
+#execp_continuous = 1
+execp_has_icon = 1
+#execp_cache_icon = 0
+execp_markup = 1
+execp_centered = 1
+execp_padding = 8 0 0
+
+execp_lclick_command = amixer set Master toggle
+#execp_mclick_command =
+execp_rclick_command = pavucontrol
+execp_uwheel_command = amixer set Master 5%+ unmute
+execp_dwheel_command = amixer set Master 5%- unmute
+
+execp_font = Noto Sans Bold 8
+execp_background_id = 6
+execp_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## KEYBOARD LAYOUT
+#---------------------------------------------
+execp = keyboard
+execp_command = ~/.config/openbox/script/keyboard -i
+execp_tooltip =
+execp_interval = 1
+#execp_continuous = 1
+execp_has_icon = 1
+#execp_cache_icon = 0
+execp_markup = 1
+execp_centered = 1
+execp_padding = 8 0 0
+
+execp_lclick_command = xkb-switch --next
+#execp_mclick_command =
+execp_rclick_command = lxinput
+
+execp_font = Noto Sans Bold 8
+execp_background_id = 6
+execp_font_color = #ffffff 100
+
+
+#---------------------------------------------
+## TOOLTIP
+#---------------------------------------------
+tooltip_show_timeout = 0.1
+tooltip_hide_timeout = 0.1
+tooltip_padding = 10 8
+
+tooltip_font = Noto Sans 9
+tooltip_background_id = 2
+tooltip_font_color = #5c616c 100
+
+
+#---------------------------------------------
+## AUTOHIDE OPTIONS
+#---------------------------------------------
+autohide = 0
+autohide_show_timeout = 0.3
+autohide_hide_timeout = 0.7
+autohide_height = 2

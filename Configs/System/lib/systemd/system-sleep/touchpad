@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case $1 in
+  post)
+    rmmod i2c_hid
+    modprobe i2c_hid
+    rmmod hid_multitouch
+    modprobe hid_multitouch
+    ;;
+esac

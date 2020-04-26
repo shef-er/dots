@@ -1,0 +1,317 @@
+# vim:filetype=i3
+#---------------------------------------
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#---------------------------------------
+set $mod            Mod4
+set $alt            Mod1
+
+set $gap_out        2
+set $gap_in         4
+
+set $font           pango: Roboto Medium 9
+set $border         pixel 1
+
+set $ws1            1:network
+set $ws2            2:files
+set $ws3            3:code
+set $ws4            4:study
+set $ws5            5:misc 1
+set $ws6            6:misc 2
+set $ws7            7:misc 3
+set $ws8            8:misc 4
+
+
+#---------------------------------------
+# Color defs
+#---------------------------------------
+set_from_resource $win-bg       i3.win-bg           #e7e8eb
+set_from_resource $win-fg       i3.win-fg           #70788d
+set_from_resource $win-un-fg    i3.win-un-fg        #979dac
+set_from_resource $win-hl-bg    i3.win-hl-bg        #5294e2
+set_from_resource $win-hl-fg    i3.win-hl-fg        #ffffff
+
+set_from_resource $bar-bg       i3.bar-bg           #00000000
+set_from_resource $bar-fg       i3.bar-fg           #ffffffff
+set_from_resource $bar-ws-bg    i3.bar-ws-bg        #00000000
+set_from_resource $bar-ws-fg    i3.bar-ws-fg        #ffffff80
+
+
+#---------------------------------------
+# Main settings
+#---------------------------------------
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+font                            -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font                            $font
+
+# Use Mouse + $mod to drag floating windows
+floating_modifier               $mod
+
+for_window [class="^.*"] border $border
+
+default_orientation             horizontal
+workspace_layout                default
+focus_follows_mouse             yes
+popup_during_fullscreen         smart
+
+# Gaps between splits and screen edges
+gaps inner                      $gap_in
+gaps outer                      $gap_out
+# Smart gaps (gaps used if only more than one container on the workspace)
+#smart_gaps                      on
+# Smart borders (draw borders around container only if it is not alone)
+#smart_borders                   no_gaps
+
+
+#---------------------------------------
+#   Appearance and bar
+#---------------------------------------
+# Frames appperance
+# class                         border      backgr.     text        indictr.    child_border
+client.focused                  $win-hl-bg  $win-hl-bg  $win-hl-fg  $win-hl-bg  $win-hl-bg
+client.focused_inactive         $win-bg     $win-bg     $win-fg     $win-bg     $win-bg
+client.unfocused                $win-bg     $win-bg     $win-un-fg  $win-bg     $win-bg
+client.urgent                   $win-bg     $win-bg     $win-hl-bg  $win-bg     $win-bg
+client.placeholder              $win-bg     $win-bg     $win-fg     $win-bg     $win-bg
+client.background               $win-bg
+
+bar {
+    # Pass RGBA color values if you want transparency
+    i3bar_command               i3bar -t
+    status_command              i3blocks -c ~/.config/i3/blocks.config
+    position                    top
+    tray_padding                2
+    #tray_output                 none
+    separator_symbol            ·
+    workspace_buttons           yes
+    strip_workspace_numbers     yes
+
+    height                      24
+
+
+    colors {
+      background                      $bar-bg
+      statusline                      $bar-fg
+      separator                       $bar-bg
+
+      # class                         border      backgr.     text
+      focused_workspace               $bar-ws-bg  $bar-ws-bg  $bar-fg
+      active_workspace                $bar-ws-bg  $bar-ws-bg  $bar-ws-fg
+      inactive_workspace              $bar-ws-bg  $bar-ws-bg  $bar-ws-fg
+      urgent_workspace                $bar-ws-bg  $bar-ws-bg  $win-hl-bg
+      binding_mode                    $bar-ws-bg  $bar-ws-bg  $win-hl-bg
+    }
+}
+
+
+#---------------------------------------
+#   Keybindings
+#---------------------------------------
+# Session control
+bindsym $mod+Escape             reload
+bindsym $mod+Shift+Escape       exec --no-startup-id zsh -c power-dmenu
+bindsym $mod+Shift+l            exec --no-startup-id zsh -c lock
+
+# Fav apps
+bindsym $mod+Return             exec x-terminal-emulator
+bindsym $mod+w                  exec x-www-browser
+bindsym $mod+e                  exec subl
+bindsym $mod+f                  exec nautilus
+bindsym $mod+m                  exec deadbeef
+bindsym $mod+p                  exec x-terminal-emulator -e htop
+
+bindsym $mod+grave              workspace $ws4; exec --no-startup-id zsh -c study-dmenu
+
+bindsym $mod+Tab                exec --no-startup-id rofi -show window -width 40
+bindsym $mod+r                  exec --no-startup-id rofi -show run
+bindsym $mod+Shift+r            exec --no-startup-id rofi -show drun
+
+bindsym --release Print         exec --no-startup-id "scrot -d 1 -e 'mkdir -p ~/Pictures/Screenshots/; mv $f ~/Pictures/Screenshots/'"
+bindsym --release Shift+Print   exec --no-startup-id "scrot -s -d 1 -e 'mkdir -p ~/Pictures/Screenshots/; mv $f ~/Pictures/Screenshots/'"
+
+# Music controls
+bindsym $alt+F8                 exec --no-startup-id deadbeef --toggle-pause
+bindsym $alt+F9                 exec --no-startup-id deadbeef --prev
+bindsym $alt+F10                exec --no-startup-id deadbeef --next
+
+# Media buttons
+bindsym XF86MonBrightnessDown   exec --no-startup-id xbacklight -set 20
+bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight -set 90
+
+bindsym XF86AudioRaiseVolume    exec --no-startup-id amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume    exec --no-startup-id amixer -q set Master 5%- unmute
+bindsym XF86AudioMute           exec --no-startup-id amixer -q set Master toggle
+
+
+#---------------------------------------
+#   Windows
+#---------------------------------------
+# The middle button kills the window
+bindsym --release button2       kill
+#bindsym --whole-window          $mod+button2 kill
+
+# The right button toggles floating
+#bindsym button3                 floating toggle
+#bindsym --whole-window          $mod+button3 floating toggle
+
+# Kill focused window
+bindsym $alt+F4                 kill
+bindsym $mod+Shift+q            kill
+
+# Change focus
+bindsym $mod+Left               focus left
+bindsym $mod+Down               focus down
+bindsym $mod+Up                 focus up
+bindsym $mod+Right              focus right
+# Move focused window
+bindsym $mod+Shift+Left         move left
+bindsym $mod+Shift+Down         move down
+bindsym $mod+Shift+Up           move up
+bindsym $mod+Shift+Right        move right
+# Resize window (you can also use the mouse for that)
+bindsym $mod+Control+Left       resize shrink width 10 px
+bindsym $mod+Control+Down       resize grow   height 10 px
+bindsym $mod+Control+Up         resize shrink height 10 px
+bindsym $mod+Control+Right      resize grow   width 10 px
+
+# Focus the parent / child container
+bindsym $mod+a                  focus parent
+bindsym $mod+s                  focus child
+
+# Split in horizontal / vertical orientation
+bindsym $mod+h                  split horizontal; exec --no-startup-id notify-send 'split horiz.'
+bindsym $mod+v                  split vertical;   exec --no-startup-id notify-send 'split vert.'
+# Change container layout (default, tabbed, stacking)
+bindsym $mod+z                  layout default;   exec --no-startup-id notify-send 'default layout'
+bindsym $mod+x                  layout tabbed;    exec --no-startup-id notify-send 'tabbed layout'
+#bindsym $mod+c                  layout stacking;  exec --no-startup-id notify-send 'stacking layout'
+
+# Change focus between tiling / floating windows
+bindsym $mod+space              focus mode_toggle
+# Toggle tiling / floating
+bindsym $mod+Shift+space        floating toggle
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+F11            fullscreen toggle
+# Sticky toggle (only floating)
+bindsym $mod+Shift+s            sticky toggle
+
+# Move to / take from scratchpad
+bindsym $mod+minus              move scratchpad
+bindsym $mod+equal              scratchpad show
+
+
+#---------------------------------------
+#   Workspaces
+#---------------------------------------
+# Switching between workspaces
+bindsym $mod+period             workspace next
+bindsym $mod+comma              workspace prev
+
+# Move focused container between workspaces
+bindsym $mod+Shift+period       move container to workspace next; workspace next
+bindsym $mod+Shift+comma        move container to workspace prev; workspace prev
+
+# Switch to workspace
+bindsym $mod+1                  workspace $ws1
+bindsym $mod+2                  workspace $ws2
+bindsym $mod+3                  workspace $ws3
+bindsym $mod+4                  workspace $ws4
+bindsym $mod+5                  workspace $ws5
+bindsym $mod+6                  workspace $ws6
+bindsym $mod+7                  workspace $ws7
+bindsym $mod+8                  workspace $ws8
+
+# Move focused container to workspace
+bindsym $mod+Shift+1            move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2            move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3            move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4            move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5            move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6            move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7            move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8            move container to workspace $ws8; workspace $ws8
+
+
+#---------------------------------------
+#   Autostart
+#---------------------------------------
+# GNOME PolicyKit authentication
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
+
+# Wallpaper
+exec --no-startup-id nitrogen --restore
+
+# Compositor
+exec --no-startup-id compton -c --config ~/.config/compton.conf
+
+
+#---------------------------------------
+#   Window rules
+#---------------------------------------
+for_window [window_role="pop-up"]       floating enable; move absolute center
+for_window [window_role="task_dialog"]  floating enable; move absolute center
+
+#for_window [class="(?i)viewnior"]       floating enable
+#for_window [class="(?i)sxiv"]           floating enable
+for_window [class="(?i)onboard"]        floating enable
+for_window [class="(?i)lxappearance"]   floating enable
+for_window [class="(?i)nitrogen"]       floating enable
+for_window [class="(?i)deadbeef"]       floating enable
+for_window [class="(?i)xterm"]          floating enable; move absolute center
+for_window [class="(?i)uxterm"]         floating enable; move absolute center
+for_window [class="(?i)urxvt"]          floating enable; move absolute center
+for_window [class="(?i)termite"]        floating enable; move absolute center
+
+for_window [instance="neovim"]          floating disable
+
+for_window [title="(?i)alsamixer"]      floating enable
+for_window [title="(?i)nmtui"]          floating enable
+
+
+assign [class="(?i)firefox"]            $ws1
+assign [class="(?i)pale moon"]          $ws1
+assign [class="(?i)chromium"]           $ws1
+assign [class="(?i)google-chrome"]      $ws1
+
+assign [class="(?i)pcmanfm"]            $ws2
+assign [class="(?i)thunar"]             $ws2
+assign [class="(?i)nautilus"]           $ws2
+assign [class="(?i)filezilla"]          $ws2
+assign [class="(?i)libreoffice"]        $ws2
+assign [class="(?i)gimp"]               $ws2
+assign [class="(?i)inkscape"]           $ws2
+#assign [class="(?i)viewnior"]           $ws2
+
+#assign [class="(?i)vim"]                $ws3
+#assign [instance="(?i)vim"]             $ws3
+#assign [class="(?i)neovim"]             $ws3
+#assign [instance="(?i)neovim"]          $ws3
+#assign [class="(?i)geany"]              $ws3
+#assign [class="(?i)subl"]               $ws3
+#assign [class="(?i)subl3"]              $ws3
+#assign [class="(?i)monodevelop"]        $ws3
+#assign [class="(?i)meld"]               $ws3
+
+
+#---------------------------------------
+#   Modes
+#---------------------------------------
+# Power management
+set $mode_power System (r) reload,  (e) logout, (s) suspend, (Shift+r) reboot, (Shift+s) shutdown
+mode "$mode_power" {
+    bindsym r                   reload; mode "default"
+    bindsym e                   exit;   mode "default"
+    bindsym s                   exec --no-startup-id systemctl suspend;   mode "default"
+    bindsym Shift+r             exec --no-startup-id systemctl reboot;    mode "default"
+    bindsym Shift+s             exec --no-startup-id systemctl poweroff;  mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return              mode "default"
+    bindsym Escape              mode "default"
+}
+#bindsym $mod+$alt+Escape        mode "$mode_power"
+

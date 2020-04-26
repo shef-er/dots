@@ -1,0 +1,71 @@
+# vim: ft=cfg
+[global]
+    alignment = left
+    bounce_freq = 20
+    browser = x-www-browser
+    dmenu = rofi -dmenu -p dunst
+    follow = mouse
+    monitor = 0
+    font = Noto Sans 9
+    line_height = 0
+
+    allow_markup = yes
+    format = "<b>%s</b>\n%b"
+    ignore_newline = no
+    word_wrap = yes
+
+    # geometry [{width}]x{height}][+/-{x}+/-{y}]
+    geometry = "360x0-10-50"
+    padding = 20
+    horizontal_padding = 20
+    separator_color = frame
+    separator_height = 1
+    transparency = 0
+
+    # don't remove messages if user is idle
+    idle_threshold = 0
+    show_age_threshold = 99
+
+    indicate_hidden = yes
+    show_indicators = yes
+    shrink = no
+    sort = yes
+    startup_notification = false
+    sticky_history = yes
+    history_length = 20
+
+    title = dunst
+    class = dunst
+
+    # Align icons left/right/off
+    icon_position = left
+    # Scale larger icons down to this size, set to 0 to disable
+    max_icon_size = 32
+
+    # Paths to default icons.
+    icon_folders = /usr/share/icons/gnome/32x32/status/:/usr/share/icons/gnome/32x32/devices/
+
+[frame]
+    width = 0
+    color = "#cccccc"
+
+[shortcuts]
+    #close = mod4+x
+    #close_all = mod4+ctrl+x
+    #history = mod4+grave
+    #context = ctrl+shift+period
+
+[urgency_low]
+    background = "#ffffff"
+    foreground = "#525d76"
+    timeout = 5
+
+[urgency_normal]
+    background = "#ffffff"
+    foreground = "#525d76"
+    timeout = 5
+
+[urgency_critical]
+    background = "#ffffff"
+    foreground = "#e25294"
+    timeout = 100

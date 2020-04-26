@@ -1,0 +1,106 @@
+#!/bin/sh
+###
+## ~/.xsessionrc
+## for graphical sessions
+###
+
+## Include sbin in PATH
+if [ -d "/sbin" ] ; then
+    PATH="/sbin:$PATH"
+fi
+if [ -d "/usr/sbin" ] ; then
+    PATH="/usr/sbin:$PATH"
+fi
+
+## Set PATH so it includes user's private bin if it exists
+if [ -d ${HOME}/.local/bin ] ; then
+    PATH="${HOME}"/.local/bin:"${PATH}"
+fi
+
+export PATHUPD=true
+
+
+### X11 custom default apps
+
+## Custom variables
+X_FILE_MANAGER="thunar"
+X_TEXT_EDITOR="mousepad"
+
+if [ ! -f ~/.local/bin/x-file-manager ]; then
+    ln -s /usr/bin/${X_FILE_MANAGER} ~/.local/bin/x-file-manager
+fi
+if [ ! -f ~/.local/bin/x-text-editor ]; then
+    ln -s /usr/bin/${X_TEXT_EDITOR} ~/.local/bin/x-text-editor
+fi
+
+
+### X11 SETTINGS
+
+## Turn on/off system beep.
+xset b off
+
+## Set keyboard settings - 500 ms delay and 50 cps (characters per second) repeat rate.
+## Restart to defaults: xset r rate
+xset r rate 500 50
+
+## Disable CapsLock
+setxkbmap -layout 'us,ru' -option 'grp:alt_shift_toggle,ctrl:nocaps'
+## Alternative: use caps as a compose key
+#setxkbmap -option compose:caps
+
+## Configure touchpad. See 'man synaptics' for more info.
+#if xinput | grep -q "TouchPad"; then
+#    synclient VertEdgeScroll=1 HorizEdgeScroll=0 TapButton1=1 2>/dev/null &
+#
+#    ## Disable touchpad while typing
+#    syndaemon -i .5 -K -t -R -d &
+#fi
+
+## Disable touch screen
+#if xinput | grep -q "Cando"; then
+#    xinput disable 10
+#fi
+
+## Turn off the screen after 15 min idle 
+xset +dpms
+## xset dpms {standby) {suspend} {off}.
+## in seconds
+xset dpms 1200 1500 1800
+
+## Enables arrow cursor
+xsetroot -cursor_name left_ptr
+
+## Xresources
+xrdb -merge ~/.Xresources
+
+##
+# Display settings
+##
+
+##
+# Powersaving
+##
+
+## Set minimal backlight at startup to save power on notebook
+#if upower -e | grep -q "BAT"; then
+#    xset dpms 900 1050 1200
+#    xbacklight -set 50
+#fi
+
+## Set autolock [Works bad]
+#xautolock -time 20 -locker "dm-tool lock" &
+
+### X11 SETTINGS END
+
+
+##
+# Apps tweaks
+##
+
+# for java apps
+export JAVA_FONTS=/usr/share/fonts/TTF
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on' #worked good
+
+# for qt5 apps
+export QT_STYLE_OVERRIDE=GTK+
