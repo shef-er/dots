@@ -1,92 +1,3 @@
-# ~/.zshrc
-
-##
-## Hotkeys:
-##
-
-# Ctrl + Shift Switching between keyboard layouts
-
-## Moving cursor:
-# Ctrl + a   Go to the beginning of the line (Home)
-# Ctrl + e   Go to the End of the line (End)
-# Ctrl + p   Previous command (Up arrow)
-# Ctrl + n   Next command (Down arrow)
-# Ctrl + f   Forward one character
-# Ctrl + b   Backward one character
-#  Alt + b   Back (left) one word
-#  Alt + f   Forward (right) one word
-
-## Editing:
-# Ctrl + l   Clear the Screen, similar to the clear command.
-#
-#  Alt + Del Delete the Word before the cursor. ?
-#  Alt + d   Delete the Word after the cursor.
-# Ctrl + d   Delete character under the cursor.
-# Ctrl + h   Delete character before the cursor (Backspace)
-#
-# Ctrl + w   Cut the Word before the cursor to the clipboard.
-# Ctrl + k   Cut the Line after the cursor to the clipboard.
-# Ctrl + u   Cut/delete the Line before the cursor to the clipboard.
-#
-#  Alt + t   Swap current word with previous.
-# Ctrl + t   Swap the last two characters before the cursor (typo).
-#  Esc + t   Swap the last two words before the cursor.
-#
-# Ctrl + y   Paste the last thing to be cut (yank)
-#  Alt + u   UPPER capitalize every character from the cursor to the end of the current word.
-#  Alt + l   Lower the case of every character from the cursor to the end of the current word.
-#  Alt + c   Capitalize the character under the cursor and move to the end of the word.
-#  Alt + r   Cancel the changes and put back the line as it was in the history (revert).
-# Ctrl + _   Undo
-#
-# TAB        Tab completion for file/directory names
-
-## History:
-# Ctrl + r   Recall the last command including the specified character(s)
-# Ctrl + p   Previous command in history (i.e. walk back through the command history)
-# Ctrl + n   Next command in history (i.e. walk forward through the command history)
-
-# Ctrl + s   Go back to the next most recent command.
-#            (beware to not execute it from a terminal because this will also launch its XOFF).
-# Ctrl + o   Execute the command found via Ctrl+r or Ctrl+s
-# Ctrl + g   Escape from history searching mode
-#       !!   Repeat last command
-#     !abc   Run last command starting with abc
-#   !abc:p   Print last command starting with abc
-#       !$   Last argument of previous command
-#  ALT + .   Last argument of previous command
-#       !*   All arguments of previous command
-# ^abc­^­def   Run previous command, replacing abc with def
-
-## Process control:
-# Ctrl + c   Interrupt/Kill whatever you are running (SIGINT)
-# Ctrl + l   Clear the screen
-# Ctrl + s   Stop output to the screen (for long running verbose commands)
-#            Then use PgUp/PgDn for navigation
-# Ctrl + q   Allow output to the screen (if previously stopped using command above)
-# Ctrl + d   Send an EOF marker, unless disabled by an option, this will close the current shell (EXIT)
-# Ctrl + z   Send the signal SIGTSTP to the current task, which suspends it.
-#            To return to it later enter fg 'process name' (foreground).
-
-## Special keys:
-# Ctrl+I = Tab
-# Ctrl+J = Newline
-# Ctrl+M = Enter
-# Ctrl+[ = Escape
-#
-# Many terminals will also send control characters for keys in the digit row:
-# Ctrl+2 → ^@
-# Ctrl+3 → ^[ = Escape
-# Ctrl+4 → ^\
-# Ctrl+5 → ^]
-# Ctrl+6 → ^^
-# Ctrl+7 → ^_ = Undo
-# Ctrl+8 → ^? = Backward-delete-char
-#
-# Ctrl + v   tells the terminal to not interpret the following character
-#---------------------------------------
-
-
 #---------------------------------------
 # ZSH Configuration
 #---------------------------------------
@@ -94,72 +5,97 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=10000
 
-setopt appendhistory autocd extendedglob completealiases histignoredups histignorespace
-unsetopt beep
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-setopt HIST_IGNORE_DUPS
+# Completion
+autoload -Uz compinit
+_comp_options+=( globdots )
+mkdir -p $HOME/.cache/zsh
+compinit -d ${HOME}/.cache/zsh/zcompdump-$ZSH_VERSION
 
-zstyle :compinstall filename '${HOME}/.zshrc'
-
-zstyle ':completion:*'              menu select
-zstyle ':completion:*'              rehash true
-
-zstyle ':completion:*:kill:*'       force-list always
-zstyle ':completion:*:*:kill:*'     menu yes select
-
-zstyle ':completion:*:killall:*'    force-list always
-zstyle ':completion:*:*:killall:*'  menu yes select
-
-zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
-
-autoload -Uz compinit colors
-_comp_options+=(globdots)
-compinit
+# Colors
+autoload -Uz colors
 colors
+
+# VCS Info
+autoload -Uz vcs_info
+precmd_functions+=( vcs_info )
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
+
+zstyle :compinstall                     filename '${HOME}/.zshrc'
+
+zstyle ':completion:*'                  menu select
+zstyle ':completion:*'                  rehash true
+zstyle ':completion:*:kill:*'           force-list always
+zstyle ':completion:*:*:kill:*'         menu yes select
+zstyle ':completion:*:killall:*'        force-list always
+zstyle ':completion:*:*:killall:*'      menu yes select
+zstyle ':completion:*:processes-names'  command  'ps c -u ${USER} -o command | uniq'
+
+# Format the vcs_info_msg_0_
+zstyle ':vcs_info:*'                    enable git
+zstyle ':vcs_info:git:*'                formats ' ⎇ %b '
+
+unsetopt beep
+setopt autocd extendedglob completealiases
+setopt appendhistory histignoredups histignorespace
+setopt PROMPT_SUBST
+
+
+#---------------------------------------
+# Precommand (launches before each prompt)
+#---------------------------------------
+precmd () {
+  #vcs_info
+  #print -Pn "\e]0; %n@%M  %2~  %(1j,%j job%(2j|s|); ,)\a"
+  print -Pn "\e]0;%2~ %(1j,%j job%(2j|s|); ,)\a"
+}
 
 
 #---------------------------------------
 # Terminal prompt
 #---------------------------------------
-case `id -u` in
-  0)
-    PROMPT=" %F{yellow}%n@%M%f %F{cyan}%2~%f %F{red}#%f "
-    ;;
-  *)
-    PROMPT=" %F{yellow}%n@%M%f %F{cyan}%2~%f %F{green}$%f "
-    ;;
-esac
+# Colors: 
+#   0:black, 1:red, 2:green, 3:yellow,
+#   4:blue, 5:magent, 6:cyan, 7:white
+#
+# %F{color} - fg color
+# %K{color} - bg color
+# %S        - swap text and bg colors
+# %B        - bright color variant
+#
+# %f        - reset fg color
+# %k        - reset bg color
+# %s        - reset color swapping
+# %b        - reset bright color
+#
+function custom_prompt {
+  NEWLINE=$'\n'
 
+  PROMPT_ID="%F{blue} %n@%M "
+  PROMPT_PATH="%F{cyan} %2~ "
+  PROMPT_VCS='%F{magent}${vcs_info_msg_0_}'
 
-#---------------------------------------
-# Terminal title
-#---------------------------------------
-precmd () {
-  print -Pn "\e]0;%n@%M %2~ %(1j,%j job%(2j|s|); ,)\a"
+  PROMPT_LINE1="%S${PROMPT_ID}${PROMPT_PATH}${PROMPT_VCS}"
+
+  case `id -u` in
+    0)
+      PROMPT_LINE2=" %F{red}#%f "
+      ;;
+    *)
+      PROMPT_LINE2=" %F{green}>%f "
+      ;;
+  esac
+
+  echo "${PROMPT_LINE1}%k%f%s${NEWLINE}${PROMPT_LINE2}%k%f%s"
 }
-
-
-#---------------------------------------
-# Keybindings
-#---------------------------------------
-bindkey -e
-
-bindkey "^[[H"  beginning-of-line
-bindkey "^[[F"  end-of-line
-bindkey "^[[2~" overwrite-mode
-bindkey "^[[3~" delete-char
-bindkey "^[[A"  up-line-or-history
-bindkey "^[[B"  down-line-or-history
-bindkey "^[[D"  backward-char
-bindkey "^[[C"  forward-char
-bindkey "^[[5~" history-beginning-search-backward
-bindkey "^[[6~" history-beginning-search-forward
+PROMPT="$(custom_prompt)" 
 
 
 #---------------------------------------
 # TTY coloring
 #---------------------------------------
-# set tty colours to match .Xresources scheme.
 if [ "$TERM" = "linux" ]; then
   echo -en "\e]P0121212" #black
   echo -en "\e]P1FF005F" #dark red
@@ -197,10 +133,25 @@ alias dir='dir --color=auto'
 if [ -f /usr/bin/grc ]; then
   alias irclog="grc --colour=auto irclog"
   alias log="grc --colour=auto log"
-  alias netstat="grc --colour=auto netstat"
+  alias configure="grc --colour=auto configure"
   alias ping="grc --colour=auto ping"
-  alias proftpd="grc --colour=auto proftpd"
   alias traceroute="grc --colour=auto traceroute"
+  alias gcc="grc --colour=auto gcc"
+  alias gcc="grc --colour=auto gcc"
+  alias netstat="grc --colour=auto netstat"
+  alias diff="grc --colour=auto diff"
+  alias wdiff="grc --colour=auto wdiff"
+  alias log="grc --colour=auto log"
+  alias ldap="grc --colour=auto ldap"
+  alias cvs="grc --colour=auto cvs"
+  alias mount="grc --colour=auto mount"
+  alias mtr="grc --colour=auto mtr"
+  alias ps="grc --colour=auto ps"
+  alias dig="grc --colour=auto dig"
+  alias ifconfig="grc --colour=auto ifconfig"
+  alias ls="grc --colour=auto ls"
+  alias mount="grc --colour=auto mount"
+  alias df="grc --colour=auto df"
 fi
 
 # manpages coloring
@@ -218,18 +169,26 @@ man() {
 
 
 #---------------------------------------
+# Input settings
+#---------------------------------------
+if [ -f ~/.zinput ]; then
+    source ~/.zinput
+fi
+
+
+#---------------------------------------
 # Aliases
 #---------------------------------------
-if [ -f ~/.zsh_aliases ]; then
-    source ~/.zsh_aliases
+if [ -f ~/.zaliases ]; then
+    source ~/.zaliases
 fi
 
 
 #---------------------------------------
 # Functions
 #---------------------------------------
-if [ -f ~/.zsh_funcs ]; then
-    source ~/.zsh_funcs
+if [ -f ~/.zfunctions ]; then
+    source ~/.zfunctions
 fi
 
 ttyctl -f

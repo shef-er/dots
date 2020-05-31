@@ -1,3 +1,9 @@
+# ~/.zfunctions
+# vim: set syntax=zsh
+
+#---------------------------------------
+# Functions
+#---------------------------------------
 
 # usage: extract <filename>
 extract () {
