@@ -1,9 +1,9 @@
 # dots
 
-`./Artwork` - pictures and logos [->](/Artwork)  
-`./Configs` - Userland and system-wide configuration files [->](/Configs)  
-`./Scripts` - useful scripts  [->](/Scripts)  
-`./Tests` -  testing scripts, text files, etc... [->](/Tests)  
+[►](/Artwork) `./Artwork` - pictures and logos  
+[►](/Configs) `./Configs` - Userland and system-wide configuration files  
+[►](/Scripts) `./Scripts` - useful scripts  
+[►](/Tests) `./Tests` -  testing scripts, text files, etc...  
 
 
 ## Gnome Shell Extensions
