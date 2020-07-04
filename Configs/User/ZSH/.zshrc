@@ -84,7 +84,7 @@ function custom_prompt {
       PROMPT_LINE2=" %F{red}#%f "
       ;;
     *)
-      PROMPT_LINE2=" %F{green}>%f "
+      PROMPT_LINE2=" %F{green}→%f "
       ;;
   esac
 

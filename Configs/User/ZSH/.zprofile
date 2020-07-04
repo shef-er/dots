@@ -1,4 +1,5 @@
 # ~/.zprofile
 # vim: set syntax=zsh
 
-. /home/erik/.nix-profile/etc/profile.d/nix.sh
+setfont Cyr_a8x16
+

@@ -15,6 +15,7 @@ alias h='fc -l'
 alias j=jobs
 alias m=less
 alias g='egrep -i'
+alias ls='ls --group-directories-first'
 alias l='ls -aF'
 alias ll='ls -lthF'
 alias la='ls -lathF'
