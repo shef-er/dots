@@ -4,7 +4,7 @@
 
 " Colorschemes
 "
-  Plug 'dracula/vim', { 'as': 'dracula' }
+  "Plug 'dracula/vim', { 'as': 'dracula' }
   "Plug 'arcticicestudio/nord-vim'
 
 
@@ -34,7 +34,7 @@
   "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " Deoplete
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     "Plug 'tweekmonster/deoplete-clang2'
     "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 

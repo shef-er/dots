@@ -120,7 +120,7 @@
 
 " Display invisible characters
   set list
-  set listchars=tab:>\ ,trail:·,extends:»,precedes:«,nbsp:×
+  set listchars=tab:→\ ,trail:·,extends:»,precedes:«,nbsp:×
   "set listchars+=eol:¬
 
   " Characters to fill the statuslines and vertical separators
@@ -131,9 +131,9 @@
 
 " Don't break words when wrapping
   set linebreak
-" Show ↪ at the beginning of wrapped lines
+" Show ↵ at the beginning of wrapped lines
   if has("linebreak")
-      let &sbr = nr2char(8618).' '
+      let &sbr = nr2char(8629).' '
   endif
 
 " Do smart indenting when starting a new line
