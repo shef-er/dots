@@ -1,7 +1,10 @@
+[user]
+	name = Ernest Shefer
 [credential]
 	helper = cache
 [core]
 	filemode = false
+	editor = nvim
 [diff]
     tool = meld
 [difftool]
