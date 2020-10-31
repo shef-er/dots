@@ -97,23 +97,23 @@ PROMPT="$(custom_prompt)"
 # TTY coloring
 #---------------------------------------
 if [ "$TERM" = "linux" ]; then
-  echo -en "\e]P0121212" #black
-  echo -en "\e]P1FF005F" #dark red
-  echo -en "\e]P25FD700" #dark green
-  echo -en "\e]P3FFAF00" #dark yellow
-  echo -en "\e]P40087D7" #dark blue
-  echo -en "\e]P58700D7" #dark magenta
-  echo -en "\e]P600D7D7" #dark cyan
-  echo -en "\e]P7BCBCBC" #light grey
+  echo -en "\e]P0121212" # black
+  echo -en "\e]P1FF005F" # dark red
+  echo -en "\e]P25FD700" # dark green
+  echo -en "\e]P3FFAF00" # dark yellow
+  echo -en "\e]P40087D7" # dark blue
+  echo -en "\e]P58700D7" # dark magenta
+  echo -en "\e]P600D7D7" # dark cyan
+  echo -en "\e]P7BCBCBC" # light grey
 
-  echo -en "\e]P8767676" #dark grey
-  echo -en "\e]P9FF00AF" #red
-  echo -en "\e]PA87FF00" #green
-  echo -en "\e]PBFFD75F" #yellow
-  echo -en "\e]PC5FAFFF" #blue
-  echo -en "\e]PDAF5fff" #magenta
-  echo -en "\e]PE5fffff" #cyan
-  echo -en "\e]PFFFFFFF" #white
+  echo -en "\e]P8767676" # dark grey
+  echo -en "\e]P9FF00AF" # red
+  echo -en "\e]PA87FF00" # green
+  echo -en "\e]PBFFD75F" # yellow
+  echo -en "\e]PC5FAFFF" # blue
+  echo -en "\e]PDAF5fff" # magenta
+  echo -en "\e]PE5fffff" # cyan
+  echo -en "\e]PFFFFFFF" # white
 
   clear #remove background artifacting
 fi
@@ -141,7 +141,6 @@ if [ -f /usr/bin/grc ]; then
   alias netstat="grc --colour=auto netstat"
   alias diff="grc --colour=auto diff"
   alias wdiff="grc --colour=auto wdiff"
-  alias log="grc --colour=auto log"
   alias ldap="grc --colour=auto ldap"
   alias cvs="grc --colour=auto cvs"
   alias mount="grc --colour=auto mount"
