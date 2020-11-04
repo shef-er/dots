@@ -2,8 +2,9 @@
 #
 # Perform installation of dotfiles presets
 
-set -e
-set -o pipefail
+set -euo pipefail
+IFS=$'\n\t'
+
 
 PRESETS_DIR="Presets"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -128,7 +129,6 @@ dots::main() {
       break
     fi
   done
-
 }
 
 dots::main "$@"
