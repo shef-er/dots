@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+#
+# Perform installation of dotfiles presets
+
+set -e
+set -o pipefail
+
+PRESETS_DIR="Presets"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+
+ESC="$(echo -en '\e')"
+
+dots::color::red() {
+    echo -n "${ESC}[31m"
+}
+
+dots::color::green() {
+    echo -n "${ESC}[32m"
+}
+
+dots::color::yellow() {
+    echo -n "${ESC}[33m"
+}
+
+dots::color::blue() {
+    echo -n "${ESC}[34m"
+}
+
+dots::color::magnet() {
+    echo -n "${ESC}[35m"
+}
+
+dots::color::cyan() {
+    echo -n "${ESC}[36m"
+}
+
+dots::color::reset() {
+    echo -n "${ESC}[39m"
+}
+
+
+dots::get_help() {
+  cat << EOF
+Easy dotfiles presets installation
+
+Usage: dots [OPTIONS]
+
+Options:
+  -h    Show this help
+  -v    Show detailed output
+  -d    Set install destination folder
+  -p    Install preset with specific name
+EOF
+}
+
+dots::error() {
+  dots::color::red
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
+  dots::color::reset
+}
+
+dots::list_presets() {
+  dots::color::blue
+  ls "${SCRIPT_DIR}/${PRESETS_DIR}"
+  dots::color::reset
+}
+
+dots::run_postinstall() {
+  if [[ -f "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}" ]]; then
+    "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}"
+  fi
+}
+
+dots::copy_preset() {
+  dots::color::cyan
+  if [[ "${VERBOSE}" == true ]]; then
+    cp -v -r "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}/." "${DEST_DIR}/"
+  else
+    cp -r "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}/." "${DEST_DIR}/"
+  fi
+  dots::color::reset
+}
+
+dots::install_preset() {
+  if [[ -d "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}" ]]; then
+    dots::copy_preset
+  else
+    dots::error "Wrong preset name:" "${preset}"
+  fi
+}
+
+dots::main() {
+  VERBOSE=false
+  DEST_DIR=""
+  preset=""
+  while getopts "d:p:vh" flag; do
+    case "${flag}" in
+      v) VERBOSE=true ;;
+      h) dots::get_help; exit 0 ;;
+      d) DEST_DIR="${OPTARG}" ;;
+      p) preset="${OPTARG}" ;;
+      *) exit 1 ;;
+    esac
+  done
+  readonly VERBOSE
+
+
+  if [[ -z "${DEST_DIR}" ]]; then
+    DEST_DIR="${HOME}"
+  fi
+
+
+  while true; do
+    if [[ -z "${preset}" ]]; then
+      echo "List of available presets: "
+
+      dots::list_presets
+
+      prompt="Enter preset name to install (or press Ctrl+C to exit): "
+      read -r -p "${prompt}" preset
+
+      dots::install_preset
+
+      unset preset
+    else
+      dots::install_preset
+      break
+    fi
+  done
+
+}
+
+dots::main "$@"
+
