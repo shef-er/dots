@@ -2,82 +2,86 @@
 "   Plugs
 "---------------------------------------
 
-" Colorschemes
-"
-  "Plug 'dracula/vim', { 'as': 'dracula' }
-  "Plug 'arcticicestudio/nord-vim'
+" Plug automatic installation
+  if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+  endif
+
+" Specify a directory for plugins
+  call plug#begin('~/.local/share/nvim/plugged')
 
 
-" Syntax
-"
-  Plug 'sheerun/vim-polyglot'
-  Plug 'tpope/vim-liquid'
+  " Syntax
+  "
+    Plug 'sheerun/vim-polyglot'
 
-  " Stylesheets
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'cakebaker/scss-syntax.vim'
-  "Plug 'groenewege/vim-less'
-
-
-" Linting
-"
-  " Asynchronous Lint Engine
-  Plug 'w0rp/ale'
-
-  " Alternative great linter
-  "Plug 'vim-syntastic/syntastic'
+    " WebDev
+    "Plug 'tpope/vim-liquid'
+    "Plug 'hail2u/vim-css3-syntax'
+    "Plug 'cakebaker/scss-syntax.vim'
+    "Plug 'groenewege/vim-less'
 
 
-" Autocompletion
-"
-  " IntelliSense
-  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Linting
+  "
+    " Asynchronous Lint Engine
+    Plug 'w0rp/ale'
 
-  " Deoplete
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    "Plug 'tweekmonster/deoplete-clang2'
-    "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-
-    " PHP Completion Daemon
-    Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-
-  " HTML closing tag completion
-  Plug 'alvan/vim-closetag'
+    " Alternative great linter
+    "Plug 'vim-syntastic/syntastic'
 
 
-" Tools
-"
-  " Fuzzy search
-  "Plug 'junegunn/fzf'
+  " Autocompletion
+  "
+    " IntelliSense
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-  " File browser
-  Plug 'scrooloose/nerdtree'
+    " Deoplete
+    Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  " Code commenting
-  Plug 'scrooloose/nerdcommenter'
+    " HTML closing tag completion
+    Plug 'alvan/vim-closetag'
 
-  " Code tags browser
-  Plug 'majutsushi/tagbar'
 
-  " Git
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  "Plug 'Xuyuanp/nerdtree-git-plugin'
+  " Tools
+  "
+    " Fuzzy search
+    "Plug 'junegunn/fzf'
 
-  " Display vertical indetation level lines
-  "Plug 'Yggdroot/indentLine'
+    " File browser
+    Plug 'scrooloose/nerdtree'
 
-  " Close buffer leaving split or window
-  Plug 'qpkorr/vim-bufkill'
+    " Code commenting
+    Plug 'scrooloose/nerdcommenter'
 
-  " Status line replacement
-  "Plug 'itchyny/lightline.vim'
+    " Code tags browser
+    Plug 'majutsushi/tagbar'
 
-  " Emmet html tags abbreviations
-  "Plug 'mattn/emmet-vim'
+    " Git
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
+    "Plug 'xuyuanp/nerdtree-git-plugin'
 
-  " Sublime text-like multiple cursors
-  "Plug 'terryma/vim-multiple-cursors'
+    " Display vertical indetation level lines
+    "Plug 'yggdroot/indentline'
+
+    " Close buffer leaving split or window
+    Plug 'qpkorr/vim-bufkill'
+
+    " Status line replacement
+    "Plug 'itchyny/lightline.vim'
+
+    " Emmet html tags abbreviations
+    "Plug 'mattn/emmet-vim'
+
+    " Sublime text-like multiple cursors
+    "Plug 'terryma/vim-multiple-cursors'
+
+
+" Initialize plugin system
+  call plug#end()
 
 
 "---------------------------------------
@@ -86,10 +90,11 @@
 
 " Vim-Polyglot
 "
-  let g:polyglot_disabled = []
+  "let g:polyglot_disabled = []
 
 
-" NERDTree
+"
+" scrooloose/nerdtree
 "
   nnoremap <F5> :NERDTreeToggle<CR>
 
@@ -108,9 +113,15 @@
   let NERDTreeBookmarksFile= $HOME . '/.config/nvim/NERDTreeBookmarks'
 
   autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+  autocmd VimEnter *
+        \ if argc() == 1
+        \ && isdirectory(argv()[0])
+        \ && !exists("s:std_in")
+        \ | exe 'NERDTree' argv()[0]
+        \ | wincmd p | ene | endif
 
-  " NERDTree git plugin
+  "
+  " xuyuanp/nerdtree-git-plugin
   "
     let g:NERDTreeIndicatorMapCustom = {
       \ "Modified"  : "~",
@@ -128,35 +139,31 @@
     let g:NERDTreeShowIgnoredStatus = 0
 
 
-" Tagbar (need: 'exuberant-ctags' package)
+"
+" majutsushi/agbar (need: 'exuberant-ctags' package)
 "
   nnoremap <F6> :TagbarToggle<CR>
 
 
-" vim-gitgutter
 "
-  let g:gitgutter_sign_added = '•'
+" airblade/vim-gitgutter
+"
+  let g:gitgutter_sign_added = '+'
   let g:gitgutter_sign_modified = '•'
-  let g:gitgutter_sign_removed = '•'
+  let g:gitgutter_sign_removed = '-'
 
   let g:gitgutter_max_signs = 9999
 
 
-" deoplete
 "
-  let g:deoplete#enable_at_startup = 1
+" shougo/deoplete.nvim
+"
+  let g:deoplete#enable_at_startup = 0
+  autocmd InsertEnter * call deoplete#enable()
 
-  let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-  " For 'lvht/phpcd'
-  let g:deoplete#ignore_sources.php = ['omni']
-
-  " deoplete-clang2
-    "let g:deoplete#sources#clang#executable = '/usr/lib/llvm-3.8/lib/libclang-3.8.so'
-
-  " deoplete-tern
-    "let g:tern_request_timeout = 1
-    " This do disable full signature type on autocomplete
-    "let g:tern_show_signature_in_pum = '0'
+  call deoplete#custom#option('ignore_sources', { 
+        \ '_': ['around', 'buffer']
+  \ })
 
   " omnifuncs
     "set omnifunc=syntaxcomplete#Complete
@@ -170,7 +177,8 @@
     "augroup end
 
 
-" vim-closetag
+"
+" alvan/vim-closetag
 "
   " filenames like *.xml, *.html, *.xhtml, ...
   " These are the file extensions where this plugin is enabled.
@@ -188,7 +196,8 @@
   let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 
   " integer value [0|1]
-  " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+  " This will make the list of non-closing tags case-sensitive
+  " (e.g. `<Link>` will be closed while `<link>` won't.)
   "
   let g:closetag_emptyTags_caseSensitive = 1
 
@@ -209,11 +218,11 @@
   let g:closetag_close_shortcut = '<leader>>'
 
 
-" lightline
+"
+" itchyny/lightline
 "
   "set noshowmode
   "let g:lightline = {
       "\ 'colorscheme': 'nord',
       "\ }
-
 

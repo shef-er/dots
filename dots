@@ -75,8 +75,8 @@ Commands:
 Options:
   -h        Show this help
   -v        Show detailed output
-  -d        Set destination folder
-  -p        Install preset with specific name
+  -d HOME   Set destination folder
+  -p NAME   Install preset with specific name
 EOF
 }
 
@@ -194,7 +194,7 @@ dots::command::diff() {
     done
     readonly DEST_DIR
 
-    if [[ -z "${preset+}" ]]; then
+    if [[ -z "${preset:-}" ]]; then
         echo "List of available presets: "
         dots::presets::list
 
