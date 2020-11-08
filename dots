@@ -150,7 +150,6 @@ dots::command::apply() {
     done
     readonly VERBOSE DEST_DIR
 
-
     if [[ -n "${preset:+yes}" ]]; then
         dots::presets::apply
         exit 0
@@ -193,10 +192,7 @@ dots::command::diff() {
                 ;;
         esac
     done
-
-    if [[ -z "${DEST_DIR+}" ]]; then
-        DEST_DIR="${HOME}"
-    fi
+    readonly DEST_DIR
 
     if [[ -z "${preset+}" ]]; then
         echo "List of available presets: "
