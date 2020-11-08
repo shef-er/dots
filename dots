@@ -5,130 +5,232 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-
-PRESETS_DIR="Presets"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# ----------------
+# CONFIG
+# ----------------
+DIFF_TOOL="meld"
+PRESETS_DIR="Presets"
+DEST_DIR="${HOME}"
 
-ESC="$(echo -en '\e')"
 
-dots::color::red() {
-    echo -n "${ESC}[31m"
-}
-
-dots::color::green() {
-    echo -n "${ESC}[32m"
-}
-
-dots::color::yellow() {
-    echo -n "${ESC}[33m"
-}
-
-dots::color::blue() {
-    echo -n "${ESC}[34m"
-}
-
-dots::color::magnet() {
-    echo -n "${ESC}[35m"
-}
-
-dots::color::cyan() {
-    echo -n "${ESC}[36m"
-}
-
-dots::color::reset() {
-    echo -n "${ESC}[39m"
+# ----------------
+# FORMAT
+# ----------------
+dots::format::color() {
+    ESC="$(echo -en '\e')"
+    case "${1:-"no"}" in
+        "red")      COLOR="[31m" ;;
+        "green")    COLOR="[32m" ;;
+        "yellow")   COLOR="[33m" ;;
+        "blue")     COLOR="[34m" ;;
+        "magenta")  COLOR="[35m" ;;
+        "cyan")     COLOR="[36m" ;;
+        *)          COLOR="[39m" ;;
+    esac
+    echo -n "${ESC}${COLOR}"
 }
 
 
-dots::get_help() {
-  cat << EOF
-Easy dotfiles presets installation
+# ----------------
+# LOGS
+# ----------------
+dots::log() {
+    echo "[INFO] [$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
+}
 
-Usage: dots [OPTIONS]
+dots::success() {
+    dots::format::color "green"
+    echo "[SUCCESS] [$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
+    dots::format::color
+}
 
-Options:
-  -h    Show this help
-  -v    Show detailed output
-  -d    Set install destination folder
-  -p    Install preset with specific name
-EOF
+dots::warning() {
+    dots::format::color "yellow"
+    echo "[WARNING] [$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
+    dots::format::color
 }
 
 dots::error() {
-  dots::color::red
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
-  dots::color::reset
+    dots::format::color "red"
+    echo "[ERROR] [$(date +'%Y-%m-%dT%H:%M:%S%z')]:" "$@" >&2
+    dots::format::color
 }
 
-dots::list_presets() {
-  dots::color::blue
-  ls "${SCRIPT_DIR}/${PRESETS_DIR}"
-  dots::color::reset
+
+# ----------------
+# HELP
+# ----------------
+dots::help() {
+    cat << EOF
+Easy dotfiles presets installation
+
+Usage: dots COMMAND [OPTIONS]
+
+Commands:
+    apply   Apply preset
+    diff    Show difference between preset and local configuration
+
+Options:
+  -h        Show this help
+  -v        Show detailed output
+  -d        Set destination folder
+  -p        Install preset with specific name
+EOF
 }
 
-dots::run_postinstall() {
-  if [[ -f "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}" ]]; then
-    "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}"
-  fi
+
+# ----------------
+# PRESETS
+# ----------------
+dots::presets::list() {
+    dots::format::color "blue"
+    ls "${SCRIPT_DIR}/${PRESETS_DIR}"
+    dots::format::color
 }
 
-dots::copy_preset() {
-  dots::color::cyan
-  if [[ "${VERBOSE}" == true ]]; then
-    cp -v -r "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}/." "${DEST_DIR}/"
-  else
-    cp -r "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}/." "${DEST_DIR}/"
-  fi
-  dots::color::reset
-}
+dots::presets::apply() {
+    SOURCE_PATH="${SCRIPT_DIR}/${PRESETS_DIR}/${preset}"
 
-dots::install_preset() {
-  if [[ -d "${SCRIPT_DIR}/${PRESETS_DIR}/${preset}" ]]; then
-    dots::copy_preset
-  else
-    dots::error "Wrong preset name:" "${preset}"
-  fi
-}
+    if [[ -d "${SOURCE_PATH}" ]]; then
+        dots::format::color "cyan"
+        if [[ "${VERBOSE}" == "yes" ]]; then
+            /bin/cp -v -r "${SOURCE_PATH}/." "${DEST_DIR}/"
+        else
+            /bin/cp -r "${SOURCE_PATH}/." "${DEST_DIR}/"
+        fi
+        dots::format::color
+        dots::success "Preset \"${preset}\" applied successfully"
 
-dots::main() {
-  VERBOSE=false
-  DEST_DIR=""
-  preset=""
-  while getopts "d:p:vh" flag; do
-    case "${flag}" in
-      v) VERBOSE=true ;;
-      h) dots::get_help; exit 0 ;;
-      d) DEST_DIR="${OPTARG}" ;;
-      p) preset="${OPTARG}" ;;
-      *) exit 1 ;;
-    esac
-  done
-  readonly VERBOSE
-
-
-  if [[ -z "${DEST_DIR}" ]]; then
-    DEST_DIR="${HOME}"
-  fi
-
-
-  while true; do
-    if [[ -z "${preset}" ]]; then
-      echo "List of available presets: "
-
-      dots::list_presets
-
-      prompt="Enter preset name to install (or press Ctrl+C to exit): "
-      read -r -p "${prompt}" preset
-
-      dots::install_preset
-
-      unset preset
+        dots::presets::configure
     else
-      dots::install_preset
-      break
+        dots::error "Wrong preset name:" "${preset}"
+        exit 1
     fi
-  done
+}
+
+dots::presets::configure() {
+    SOURCE_PATH="${SCRIPT_DIR}/${PRESETS_DIR}/${preset}"
+
+    if [[ -f "${SOURCE_PATH}.sh" ]]; then
+        "${SOURCE_PATH}.sh"
+    else
+        dots::warning "Configuration script \"${SOURCE_PATH}.sh\" not found"
+    fi
+}
+
+
+# ----------------
+# COMMAND "apply"
+# ----------------
+dots::command::apply() {
+    VERBOSE="no"
+    while getopts "d:p:vh" flag; do
+        case "${flag}" in
+            d)
+                DEST_DIR="${OPTARG}"
+                shift
+                ;;
+            p)
+                preset="${OPTARG}"
+                shift
+                ;;
+            v)
+                VERBOSE="yes"
+                ;;
+            h)
+                dots::help
+                exit 0
+                ;;
+            *)
+                continue
+                ;;
+        esac
+    done
+    readonly VERBOSE DEST_DIR
+
+
+    if [[ -n "${preset:+yes}" ]]; then
+        dots::presets::apply
+        exit 0
+    fi
+
+    while true; do
+        echo "List of available presets: "
+        dots::presets::list
+
+        prompt="Enter name of preset to apply (or press Ctrl+C to exit): "
+        read -r -p "${prompt}" preset
+
+        dots::presets::apply
+
+        unset preset
+    done
+}
+
+
+# ----------------
+# COMMAND 'diff'
+# ----------------
+dots::command::diff() {
+    while getopts "d:p:h" flag; do
+        case "${flag}" in
+            d)
+                DEST_DIR="${OPTARG}"
+                shift
+                ;;
+            p)
+                preset="${OPTARG}"
+                shift
+                ;;
+            h)
+                dots::help
+                exit 0
+                ;;
+            *)
+                continue
+                ;;
+        esac
+    done
+
+    if [[ -z "${DEST_DIR+}" ]]; then
+        DEST_DIR="${HOME}"
+    fi
+
+    if [[ -z "${preset+}" ]]; then
+        echo "List of available presets: "
+        dots::presets::list
+
+        prompt="Enter name of preset to apply (or press Ctrl+C to exit): "
+        read -r -p "${prompt}" preset
+    fi
+
+    SOURCE_PATH="${SCRIPT_DIR}/${PRESETS_DIR}/${preset}"
+
+    "${DIFF_TOOL}" "${SOURCE_PATH}" "${DEST_DIR}" &
+}
+
+
+# ----------------
+# MAIN
+# ----------------
+dots::main() {
+    SCRIPT_COMMAND="${1:-"no"}"
+    shift
+    case "${SCRIPT_COMMAND}" in
+        "apply")
+            dots::command::apply "$@"
+            ;;
+        "diff")
+            dots::command::diff "$@"
+            ;;
+        *)
+            dots::help
+            exit 0
+            ;;
+    esac
+    exit 0
 }
 
 dots::main "$@"
