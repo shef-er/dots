@@ -96,9 +96,9 @@ dots::presets::apply() {
     if [[ -d "${SOURCE_PATH}" ]]; then
         dots::format::color "cyan"
         if [[ "${VERBOSE}" == "yes" ]]; then
-            /bin/cp -v -r "${SOURCE_PATH}/." "${DEST_DIR}/"
+            /bin/cp -v -r "${SOURCE_PATH}/." "${DEST_DIR}"
         else
-            /bin/cp -r "${SOURCE_PATH}/." "${DEST_DIR}/"
+            /bin/cp -r "${SOURCE_PATH}/." "${DEST_DIR}"
         fi
         dots::format::color
         dots::success "Preset \"${preset}\" applied successfully"
