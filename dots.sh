@@ -3,6 +3,7 @@
 # Perform installation of dotfiles presets
 
 # TODO: move some settings into configurobale on first run config
+#       Regex for config validation: /^([\w]+)=(\w+|\"\w+\")$/gm
 # TODO: Make preset name validation on entering in cli
 
 set -euo pipefail
