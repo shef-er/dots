@@ -2,6 +2,9 @@
 #
 # Perform installation of dotfiles presets
 
+# TODO: move some settings into configurobale on first run config
+# TODO: Make preset name validation on entering in cli
+
 set -euo pipefail
 IFS=$'\n\t'
 
