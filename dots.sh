@@ -4,6 +4,7 @@
 
 # TODO: move some settings into configurobale on first run config
 #       Regex for config validation: /^([\w]+)=(\w+|\"\w+\")$/gm
+
 # TODO: Make preset name validation on entering in cli
 
 set -euo pipefail
@@ -217,13 +218,18 @@ dots::command::diff() {
 # ----------------
 dots::main() {
     SCRIPT_COMMAND="${1:-"no"}"
-    shift
     case "${SCRIPT_COMMAND}" in
         "apply")
+            shift
             dots::command::apply "$@"
             ;;
         "diff")
+            shift
             dots::command::diff "$@"
+            ;;
+        "list")
+            shift
+            dots::presets::list "$@"
             ;;
         *)
             dots::help
