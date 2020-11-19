@@ -7,8 +7,8 @@
 
 # usage: extract <filename>
 extract () {
-  if [ -f $1 ] ; then
-    case $1 in
+  if [ -f "${1}" ] ; then
+    case "${1}" in
       *.tar.bz2)    tar -xjf $1 ;;
       *.tar.gz)     tar -xzf $1 ;;
       *.tar.xz)     tar -xvfJ $1 ;;
@@ -22,10 +22,10 @@ extract () {
       *.zip|*.cbz)  unzip $1 ;;
       *.Z)          uncompress $1 ;;
       *.7z)         7z x $1 ;;
-      *)            echo "I don't know how to extract '$1'..." ;;
+      *)            echo "I don't know how to extract ${1}..." ;;
     esac
   else
-    echo "'$1' is not a valid file"
+    echo "${1} is not a valid file"
   fi
 }
 
@@ -43,10 +43,10 @@ pack () {
       cbz)    zip -r $2.cbz $2 ;;
       7z)     7z a $2.7z $2 ;;
       rar)    rar a $2.rar $2 ;;
-      *)      echo "'$1' cannot be packed via pack()" ;;
+      *)      echo "${1} cannot be packed via pack()" ;;
     esac
   else
-    echo "'$1' is not a valid file"
+    echo "${1} is not a valid file"
   fi
 }
 
