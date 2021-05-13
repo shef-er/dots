@@ -1,12 +1,22 @@
 # dots
 
-[►](/Artwork) `./Artwork` - pictures and logos  
-[►](/Configs) `./Configs` - Userland and system-wide configuration files  
-[►](/Scripts) `./Scripts` - useful scripts  
-[►](/Tests) `./Tests` -  testing scripts, text files, etc...  
+[<--](/Artwork) `./Artwork` - Pictures and logos  
+[<--](/Presets) `./Presets` - Userland configuration files  
+[<--](/System) `./System` - System-wide configuration files  
+[<--](/Scripts) `./Scripts` - Useful scripts  
+[<--](/Tests) `./Tests` -  Pesting scripts, text files, etc...  
 
 
-## Gnome Shell Extensions
+## Gnome 40 Shell Extensions
+
+#### Tray
+* [KStatusNotifierItem/AppIndicator Support](https://extensions.gnome.org/extension/615/appindicator-support/) 
+
+
+<details>
+  <summary>[Deprecated]</summary>
+
+## For Gnome 38
 
 * [Miniview](https://extensions.gnome.org/extension/1459/miniview/)  
 * [Pomodoro](https://extensions.gnome.org/extension/53/pomodoro/)  
@@ -20,6 +30,8 @@
 #### Tray
 * [Tray Icons](https://extensions.gnome.org/extension/1503/tray-icons/)  
 * [~~KStatusNotifierItem/AppIndicator Support~~](https://extensions.gnome.org/extension/615/appindicator-support/)  
+  
+</details>
 
 ## Gnome Terminal
 
