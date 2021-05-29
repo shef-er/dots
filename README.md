@@ -7,6 +7,10 @@
 [<--](/Tests) `./Tests` -  Pesting scripts, text files, etc...  
 
 
+## Chrome Settings
+* Live Captions - `chrome://flags/#enable-accessibility-live-caption`  
+* Read Later - `chrome://flags/#read-later`  
+
 ## Gnome 40 Shell Extensions
 
 #### Tray
