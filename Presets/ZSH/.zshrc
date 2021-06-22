@@ -35,7 +35,8 @@ zstyle ':completion:*:processes-names'  command  'ps c -u ${USER} -o command | u
 
 # Format the vcs_info_msg_0_
 zstyle ':vcs_info:*'                    enable git
-zstyle ':vcs_info:git:*'                formats ' ⎇ %b '
+#zstyle ':vcs_info:git:*'                formats ' ⎇ %b '
+zstyle ':vcs_info:git:*'                formats ' branch:%b '
 
 unsetopt beep
 setopt autocd extendedglob completealiases
@@ -77,7 +78,7 @@ function custom_prompt {
   PROMPT_PATH="%F{cyan} %2~ "
   PROMPT_VCS='%F{magent}${vcs_info_msg_0_}'
 
-  PROMPT_LINE1="%S${PROMPT_ID}${PROMPT_PATH}${PROMPT_VCS}"
+  PROMPT_LINE1="${PROMPT_ID}${PROMPT_PATH}${PROMPT_VCS}"
 
   case `id -u` in
     0)
